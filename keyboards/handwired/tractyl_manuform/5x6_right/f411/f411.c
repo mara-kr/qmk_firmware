@@ -22,5 +22,10 @@ void matrix_scan_sub_kb(void) {
     if (!readPin(A0)) {
         reset_keyboard();
     }
-    matrix_scan_user();
+}
+
+bool usb_vbus_state(void) {
+    setPinInputLow(USB_VBUS_PIN);
+    wait_us(5);
+    return readPin(USB_VBUS_PIN);
 }
