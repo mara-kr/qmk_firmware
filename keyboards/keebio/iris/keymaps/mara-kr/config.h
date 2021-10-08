@@ -19,5 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define USE_I2C
 #define EE_HANDS
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 0
-#define MOUSEKEY_WHEEL_DELAY 200
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 0 // Time until maximum scroll speed is reached
+#define MOUSEKEY_WHEEL_DELAY 100     // Delay between pressing a wheel key and wheel movement
+#define MOUSEKEY_WHEEL_INTERVAL 50   // Time between wheel movements
+#define MOUSEKEY_WHEEL_MAX_SPEED 8   // Maximum number of scroll steps per action
+
+#define RGBLIGHT_SLEEP // Turn off lights when host sleeps
+#define RGBLIGHT_SPLIT // Enable split board lighting
