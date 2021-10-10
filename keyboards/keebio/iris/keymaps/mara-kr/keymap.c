@@ -1,11 +1,18 @@
+// TODO: What does tapping the encoder do while scrolling?
+// TODO: Better lighting editing! Trans pride pattern moving across the board?
 #include QMK_KEYBOARD_H
 
+// Tap dance enums
+enum {
+	CPPS,
+};
 
+
+// Layer defines
 #define _COLEMAK_DHM 0
 #define _NUMPAD 1
 #define _ARROWS 2
 #define _MOUSE 3
-
 
 enum custom_keycodes {
   COLEMAK_DHM = SAFE_RANGE,
@@ -14,6 +21,24 @@ enum custom_keycodes {
   MOUSE,
 };
 
+typedef enum {
+	TD_NONE,
+	TD_UNKNOWN,
+	TD_SINGLE_TAP,
+	TD_SINGLE_HOLD,
+	TD_DOUBLE_TAP
+} td_state_t;
+
+typedef struct {
+	bool is_press_action;
+	td_state_t state;
+} td_tap_t;
+
+td_state_t cur_dance(qk_tap_dance_state_t *state);
+void c_finished(qk_tap_dance_state_t *state, void *user_data);
+void c_reset(qk_tap_dance_state_t *state, void *user_data);
+
+// Keycode macros
 #define LT_SPCE LT(_ARROWS, KC_SPC)
 #define LT_ESC  LT(_MOUSE, KC_ESC)
 #define MO_NUM  MO(_NUMPAD)
@@ -22,18 +47,19 @@ enum custom_keycodes {
 #define COPY_PW LALT(LGUI(KC_C))
 #define ADD_TSK LCTL(LGUI(KC_A))
 #define LOCK    LCTL(LGUI(KC_Q))
+#define BREAK   LCTL(LGUI(KC_W))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK_DHM] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
+       BREAK, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                               KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      LT_ESC,   KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                              KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_BSPC,          LT_SPCE,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+     KC_LSFT, KC_Z,    KC_X,       KC_C,   KC_D,   KC_V,    KC_B,            LT_SPCE,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     KC_LGUI,  MO_NUM,  KC_BSPC,                  LT_SPCE, KC_LCTL,  LAUNCH
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -49,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______, ADD_TSK,   KC_F3, KC_LBRC, KC_RBRC, COPY_PW, KC_MPLY,          KC_ENT,  _______,    KC_1,    KC_2,    KC_3, _______, _______,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, _______, _______,                    KC_ENT,  _______, _______
+                                    _______, _______, _______,                    KC_ENT, TD(CPPS), _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -158,3 +184,51 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return true;
 }
+
+// Determine the current tap dance state
+td_state_t cur_dance(qk_tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (!state->pressed) return TD_SINGLE_TAP;
+        else return TD_SINGLE_HOLD;
+    }
+	else if (state->count == 2) return TD_DOUBLE_TAP;
+    else return TD_UNKNOWN;
+}
+// Initialize tap structure associated with example tap dance key
+static td_tap_t cpps_tap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
+};
+
+// Functions that control what our tap dance key does
+void cpps_finished(qk_tap_dance_state_t *state, void *user_data) {
+    cpps_tap_state.state = cur_dance(state);
+    switch (cpps_tap_state.state) {
+        case TD_SINGLE_TAP:
+			tap_code16(G(KC_C));
+            break;
+        case TD_SINGLE_HOLD:
+			tap_code16(G(KC_V));
+            break;
+        default:
+            break;
+    }
+}
+
+void cpps_reset(qk_tap_dance_state_t *state, void *user_data) {
+    // If the key was held down and now is released then switch off the layer
+    /* if (cpps_tap_state.state == TD_SINGLE_HOLD) { */
+    /*     layer_off(_MY_LAYER); */
+    /* } */
+    cpps_tap_state.state = TD_NONE;
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+	[CPPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cpps_finished, cpps_reset)
+};
+
+/*
+Past issues:
+- Tab was sending shift and escape, I think that the pins for the tab key were
+  shorted, but swapping the switch fixed the issue.
+*/
