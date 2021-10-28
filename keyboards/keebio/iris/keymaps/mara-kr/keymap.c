@@ -42,7 +42,6 @@ void c_reset(qk_tap_dance_state_t *state, void *user_data);
 #define LT_ESC  LT(_MOUSE, KC_ESC)
 #define MO_NUM  MO(_NUMPAD)
 
-#define LAUNCH  LGUI(KC_SPC)
 #define COPY_PW LALT(LGUI(KC_C))
 #define ADD_TSK LCTL(LGUI(KC_A))
 #define LOCK    LCTL(LGUI(KC_Q))
@@ -60,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT, KC_Z,    KC_X,       KC_C,   KC_D,   KC_V,   G(KC_W),            LT_SPCE,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_LGUI,  MO_NUM,  KC_BSPC,                  LT_SPCE, KC_LCTL,  LAUNCH
+                                    KC_LGUI,  MO_NUM,  KC_BSPC,                  LT_SPCE, KC_LCTL,  KC_F4
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -176,9 +175,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 		}
 	} else {
         if (clockwise) {
-            tap_code(KC_WH_U);
+            tap_code(KC_DOWN);
+            /* tap_code(KC_WH_U); */
         } else {
-            tap_code(KC_WH_D);
+            tap_code(KC_UP);
+            /* tap_code(KC_WH_D); */
         }
     }
     return true;
