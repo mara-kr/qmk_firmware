@@ -13,11 +13,14 @@ enum {
 #define _ARROWS 2
 #define _MOUSE 3
 
+int ENC_QUICK_SCROLL = 0; // arrows by default
+
 enum custom_keycodes {
   COLEMAK_DHM = SAFE_RANGE,
   NUMPAD,
   ARROWS,
   MOUSE,
+  SCR_TGL,
 };
 
 typedef enum {
@@ -51,13 +54,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK_DHM] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-       BREAK, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
+       BREAK, _______, _______, _______, KC_BTN1, KC_BTN2,                            _______, _______, _______, _______, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                               KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      LT_ESC,   KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                              KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT, KC_Z,    KC_X,       KC_C,   KC_D,   KC_V,   G(KC_W),            LT_SPCE,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+     KC_LSFT, KC_Z,    KC_X,       KC_C,   KC_D,   KC_V,   SCR_TGL,            LT_SPCE,  KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     KC_LGUI,  MO_NUM,  KC_BSPC,                  LT_SPCE, KC_LCTL,  KC_F4
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -156,6 +159,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+	case SCR_TGL:
+	  if (record->event.pressed) {
+		ENC_QUICK_SCROLL = !ENC_QUICK_SCROLL;
+	  } else {
+		// Nothing on release
+	  }
+	  return false;
+	  break;
   }
   return true;
 }
@@ -175,11 +186,17 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 		}
 	} else {
         if (clockwise) {
-            tap_code(KC_DOWN);
-            /* tap_code(KC_WH_U); */
+			if (ENC_QUICK_SCROLL) {
+				tap_code(KC_WH_U);
+			} else {
+				tap_code(KC_DOWN);
+			}
         } else {
-            tap_code(KC_UP);
-            /* tap_code(KC_WH_D); */
+			if (ENC_QUICK_SCROLL) {
+				tap_code(KC_WH_D);
+			} else {
+				tap_code(KC_UP);
+			}
         }
     }
     return true;
