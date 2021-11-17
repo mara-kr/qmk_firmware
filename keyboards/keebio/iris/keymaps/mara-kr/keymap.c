@@ -21,6 +21,7 @@ enum custom_keycodes {
   ARROWS,
   MOUSE,
   SCR_TGL,
+  M_SCRL,
 };
 
 typedef enum {
@@ -54,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_COLEMAK_DHM] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-       BREAK, _______, _______, _______, KC_BTN1, KC_BTN2,                            _______, _______, _______, _______, _______, _______,
+       BREAK, _______, _______,  M_SCRL, KC_BTN1, KC_BTN2,                            _______, _______, _______, _______, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                               KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -165,6 +166,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	  } else {
 		// Nothing on release
 	  }
+	  return false;
+	  break;
+	case M_SCRL:
+	  if (record->event.pressed) {
+		  SEND_STRING(SS_TAP(X_NUMLOCK)SS_TAP(X_NUMLOCK));
+      }
 	  return false;
 	  break;
   }
