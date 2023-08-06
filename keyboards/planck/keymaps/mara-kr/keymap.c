@@ -50,6 +50,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
+// WARN: There might be a way to do a 2 x 2U layout, have space/BS on the bottom row,
+    // Brite/GUI/Lower Space BS Ctrl/Alt/X, might just need stabilizers
 // TODO: I've defaulted to arrows on a different layer and no raise, I could try a bigger spacebar?
 // So, Brite/Ctrl/GUI/Lower Space BS/Alt/X/X,
     // or move backspace to the top right corner, moving \ down to the Rshift position
