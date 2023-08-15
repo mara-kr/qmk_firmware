@@ -82,9 +82,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // F3/F4 used for otter speed/slow, F5 used for Misson Control
 [_LOWER] = LAYOUT_planck_grid(
     LOCK,    KC_F4,   KC_TILD, KC_LCBR, KC_RCBR, KC_UNDS, KC_MINS,    KC_7,      KC_8,     KC_9, _______, _______,
-    _______, KC_F3,    KC_GRV, KC_LPRN, KC_RPRN,  KC_EQL, KC_PLUS,    KC_5,      KC_5,     KC_6,    KC_0, _______,
+    _______, KC_F3,    KC_GRV, KC_LPRN, KC_RPRN,  KC_EQL, KC_PLUS,    KC_4,      KC_5,     KC_6,    KC_0, _______,
     _______, ADD_TSK,   KC_F5, KC_LBRC, KC_RBRC, COPY_PW,  KC_F12,    KC_1,      KC_2,     KC_3, _______, _______,
-    _______, _______, _______, _______, _______, _______,  KC_ENT,  KC_ENT,   KC_MNXT,  KC_VOLD, KC_VOLU, KC_MPLY
+    _______, _______, _______, _______, _______, _______,  KC_ENT,  KC_ENT,   _______,  _______, _______, _______
 ),
 
 /* Raise
