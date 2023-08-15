@@ -42,6 +42,10 @@ enum planck_keycodes {
 #define LOCK    LCTL(LGUI(KC_Q))
 #define BREAK   LCTL(LGUI(KC_W))
 
+#define WIN_R   LCTL(LGUI(KC_RGHT))
+#define WIN_L   LCTL(LGUI(KC_LEFT))
+#define WIN_U   LCTL(LGUI(KC_UP))
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak
@@ -52,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Alt  | GUI  | Lower|    Space    |  Backspace  |  F6  |      |      |      |
+ * | Brite| Alt  | GUI  | Lower|  Backspace  |      space  | Ctrl | F6   |      |      |
  * `-----------------------------------------------------------------------------------'
  */
     // F6 used for spotlight
@@ -61,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
     KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-    BACKLIT, KC_LALT, KC_LGUI, LOWER,LT_RAIS, LT_RAIS, KC_BSPC, KC_BSPC,    KC_F6,  _______,  _______, _______
+    RGB_TOG, KC_LALT, KC_LGUI, LOWER,KC_BSPC, KC_BSPC, LT_RAIS, LT_RAIS,    KC_LCTL,  KC_F6,  RGB_VAI, RGB_SAI
 ),
 
 /* Lower
@@ -72,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |  F5  |   {  |   }  |  PW  |      |   1  |   2  |   3  |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |  Enter      |             | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |             |  Enter      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
 // F3/F4 used for otter speed/slow, F5 used for Misson Control
@@ -80,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LOCK,    KC_F4,   KC_TILD, KC_LCBR, KC_RCBR, KC_UNDS, KC_MINS,    KC_7,      KC_8,     KC_9, _______, _______,
     _______, KC_F3,    KC_GRV, KC_LPRN, KC_RPRN,  KC_EQL, KC_PLUS,    KC_5,      KC_5,     KC_6,    KC_0, _______,
     _______, ADD_TSK,   KC_F5, KC_LBRC, KC_RBRC, COPY_PW,  KC_F12,    KC_1,      KC_2,     KC_3, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+    _______, _______, _______, _______, _______, _______,  KC_ENT,  KC_ENT,   KC_MNXT,  KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
 /* Raise
@@ -95,10 +99,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid(
-    ______,  KC_EXLM, KC_AT,   KC_HASH,  KC_DLR, KC_PERC, KC_CIRC, KC_AMRP, KC_ASTR, KC_LPRN, KC_RPRN,  KC_BSPC,
-    ______,  _______, _____,   KC_LCTL,  C_LSFT, _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______, ________,
-    _______, _______, WIN_L,     WIN_U,   WIN_R, _______, _______, _______, _______, _______, _______, ________,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________
+    _______,  KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_BSPC,
+    _______,  _______, _______, KC_LCTL, KC_LSFT, _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______,  _______,
+    _______,  _______,   WIN_L,   WIN_U,   WIN_R, _______, _______, _______, _______, _______, _______,  _______,
+    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
 ),
 
 
@@ -156,15 +160,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef KEYBOARD_planck_rev5
           writePinHigh(E6);
         #endif
-      }
-      return false;
-      break;
-    case EXT_PLV:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(plover_gb_song);
-        #endif
-        layer_off(_PLOVER);
       }
       return false;
       break;

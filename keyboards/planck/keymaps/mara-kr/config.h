@@ -31,7 +31,7 @@
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
-
+#define RGBLIGHT_DEFAULT_HUE 180
 #define MIDI_BASIC
 
 /* enable advanced MIDI features:
