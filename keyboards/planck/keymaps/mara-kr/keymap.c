@@ -35,7 +35,7 @@ enum planck_keycodes {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-#define LT_SPCE LT(_ARROWS, KC_SPC)
+#define LT_RAIS LT(_RAISE, KC_SPC)
 
 #define COPY_PW LALT(LGUI(KC_C))
 #define ADD_TSK LCTL(LGUI(KC_A))
@@ -52,20 +52,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Alt  | GUI  | Lower|    Space    |  Backspace  |  F6  | Down |  Up  |Right |
+ * | Brite| Alt  | GUI  | Lower|    Space    |  Backspace  |  F6  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
     // F6 used for spotlight
-// WARN: There might be a way to do a 2 x 2U layout, have space/BS on the bottom row,
-    // Brite/GUI/Lower Space BS Ctrl/Alt/X, might just need stabilizers
-// TODO: I've defaulted to arrows on a different layer and no raise, I could try a bigger spacebar?
-// So, Brite/Ctrl/GUI/Lower Space BS/Alt/X/X,
-    // or move backspace to the top right corner, moving \ down to the Rshift position
+    // TODO: Try for a bit, maybe a rotary encoder in one of the bottom spots
 [_COLEMAK] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
     KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-    BACKLIT, KC_LALT, KC_LGUI, LOWER,LT_SPCE, LT_SPCE, KC_BSPC, KC_BSPC,    KC_F6,  KC_DOWN, KC_UP,   KC_RGHT
+    BACKLIT, KC_LALT, KC_LGUI, LOWER,LT_RAIS, LT_RAIS, KC_BSPC, KC_BSPC,    KC_F6,  _______,  _______, _______
 ),
 
 /* Lower
@@ -98,20 +94,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      | Vol- | Vol+ |      |
  * `-----------------------------------------------------------------------------------'
  */
-// TODO: should match above
-  [_ARROWS] = LAYOUT(
-  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
-  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,	                          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, KC_LCTL, KC_LSFT, _______,                            KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______, _______,
-  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______,   WIN_L,   WIN_U,  WIN_R,  _______, G(KC_0),          _______, _______, _______,  _______, _______, _______, _______,
-  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, _______, _______,                   _______, _______, _______
-                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
-  ),
 [_RAISE] = LAYOUT_planck_grid(
     ______,  KC_EXLM, KC_AT,   KC_HASH,  KC_DLR, KC_PERC, KC_CIRC, KC_AMRP, KC_ASTR, KC_LPRN, KC_RPRN,  KC_BSPC,
     ______,  _______, _____,   KC_LCTL,  C_LSFT, _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______, ________,
@@ -132,7 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-    // Used to be able to swap to QWERTY here
+    // NOTE: Used to be able to swap to QWERTY here
+    // NOTE: Currently speaker is unattached, so most of these won't apply
 [_ADJUST] = LAYOUT_planck_grid(
     _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______,
     _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, COLEMAK, _______, _______,  _______,
