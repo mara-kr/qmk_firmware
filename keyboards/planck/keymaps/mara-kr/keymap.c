@@ -35,7 +35,12 @@ enum planck_keycodes {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-// TODO: I had LT(Space) to get to arrows
+#define LT_SPCE LT(_ARROWS, KC_SPC)
+
+#define COPY_PW LALT(LGUI(KC_C))
+#define ADD_TSK LCTL(LGUI(KC_A))
+#define LOCK    LCTL(LGUI(KC_Q))
+#define BREAK   LCTL(LGUI(KC_W))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -47,9 +52,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | Brite| Alt  | GUI  | Lower|    Space    |  Backspace  |  F6  | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
+    // F6 used for spotlight
 // WARN: There might be a way to do a 2 x 2U layout, have space/BS on the bottom row,
     // Brite/GUI/Lower Space BS Ctrl/Alt/X, might just need stabilizers
 // TODO: I've defaulted to arrows on a different layer and no raise, I could try a bigger spacebar?
@@ -59,31 +65,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
     KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-    BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+    BACKLIT, KC_LALT, KC_LGUI, LOWER,LT_SPCE, LT_SPCE, KC_BSPC, KC_BSPC,    KC_F6,  KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |      |  F4  |   ~  |   [  |   ]  |   _  |   -  |   7  |   8  |   9  |      | Bksp |
+ * | LOCK |  F4  |   ~  |   [  |   ]  |   _  |   -  |   7  |   8  |   9  |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  |  F3  |   `  |   (  |   )  |   =  |   +  |   4  |   5  |   6  |   0  |      |
+ * |      |  F3  |   `  |   (  |   )  |   =  |   +  |   4  |   5  |   6  |   0  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |  F5  |   {  |   }  |  PW  |      |   1  |   2  |   3  |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |    Enter    |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |  Enter      |             | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
-// TODO: should match above
+// F3/F4 used for otter speed/slow, F5 used for Misson Control
 [_LOWER] = LAYOUT_planck_grid(
-    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC,
-    KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE,
-    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), KC_HOME, KC_END,  _______,
-    _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY
+    LOCK,    KC_F4,   KC_TILD, KC_LCBR, KC_RCBR, KC_UNDS, KC_MINS,    KC_7,      KC_8,     KC_9, _______, _______,
+    _______, KC_F3,    KC_GRV, KC_LPRN, KC_RPRN,  KC_EQL, KC_PLUS,    KC_5,      KC_5,     KC_6,    KC_0, _______,
+    _______, ADD_TSK,   KC_F5, KC_LBRC, KC_RBRC, COPY_PW,  KC_F12,    KC_1,      KC_2,     KC_3, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
+ * |      |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      | Ctrl | shift|      |      | Left |  Up  | Right| Down |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -93,11 +99,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 // TODO: should match above
+  [_ARROWS] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,	                          KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______, _______, KC_LCTL, KC_LSFT, _______,                            KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______,   WIN_L,   WIN_U,  WIN_R,  _______, G(KC_0),          _______, _______, _______,  _______, _______, _______, _______,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    _______, _______, _______,                   _______, _______, _______
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
 [_RAISE] = LAYOUT_planck_grid(
-    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
-    KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-    _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+    ______,  KC_EXLM, KC_AT,   KC_HASH,  KC_DLR, KC_PERC, KC_CIRC, KC_AMRP, KC_ASTR, KC_LPRN, KC_RPRN,  KC_BSPC,
+    ______,  _______, _____,   KC_LCTL,  C_LSFT, _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______, ________,
+    _______, _______, WIN_L,     WIN_U,   WIN_R, _______, _______, _______, _______, _______, _______, ________,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ________
 ),
 
 
@@ -113,9 +132,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
+    // Used to be able to swap to QWERTY here
 [_ADJUST] = LAYOUT_planck_grid(
-    _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL ,
-    _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
+    _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______,
+    _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, COLEMAK, _______, _______,  _______,
     _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
