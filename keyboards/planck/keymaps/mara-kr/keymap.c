@@ -50,13 +50,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  |  \   |
+ * | Tab  |   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  |  BS  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Esc  |   A  |   R  |   S  |   T  |   G  |   M  |   N  |   E  |   I  |   O  |  '   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Alt  | GUI  | Lower| BS   | space       | Ctrl | F6   |   -  |   +  |Raise |
+ * | Brite| Ctrl | Alt  | GUI  | Lower|  space      | Ctrl | F6   |   -  |   +  |      |
  * `-----------------------------------------------------------------------------------'
  */
     // F6 used for spotlight
@@ -65,16 +65,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
     KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-    RGB_TOG, KC_LALT, KC_LGUI, LOWER,KC_BSPC, LT_RAIS, LT_RAIS,   KC_LCTL,  KC_F6,   KC_MINS, KC_PLUS, KC_BSPC
+    _______, KC_LCTL, KC_LALT, KC_LGUI, LOWER, LT_RAIS, LT_RAIS,   KC_BSPC,  KC_F6, _______,  _______, _______
 ),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * | LOCK |  F4  |   ~  |   [  |   ]  |   _  |   -  |   7  |   8  |   9  |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F3  |   `  |   (  |   )  |   =  |   +  |   4  |   5  |   6  |   0  |      |
+ * |      |  F3  |   `  |   (  |   )  |   =  |   +  |   4  |   5  |   6  |   0  |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |  F5  |   {  |   }  |  PW  |      |   1  |   2  |   3  |      |      |
+ * |      |      |  F5  |   {  |   }  |  PW  |      |   1  |   2  |   3  |      |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |             |  Enter      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
@@ -82,8 +82,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // F3/F4 used for otter speed/slow, F5 used for Misson Control
 [_LOWER] = LAYOUT_planck_grid(
     LOCK,    KC_F4,   KC_TILD, KC_LCBR, KC_RCBR, KC_UNDS, KC_MINS,    KC_7,      KC_8,     KC_9, _______, _______,
-    _______, KC_F3,    KC_GRV, KC_LPRN, KC_RPRN,  KC_EQL, KC_PLUS,    KC_4,      KC_5,     KC_6,    KC_0, _______,
-    _______, ADD_TSK,   KC_F5, KC_LBRC, KC_RBRC, COPY_PW,  KC_F12,    KC_1,      KC_2,     KC_3, _______, _______,
+    _______, KC_F3,    KC_GRV, KC_LPRN, KC_RPRN,  KC_EQL, KC_PLUS,    KC_4,      KC_5,     KC_6,    KC_0, KC_PIPE,
+    _______, ADD_TSK,   KC_F5, KC_LBRC, KC_RBRC, COPY_PW,  KC_F12,    KC_1,      KC_2,     KC_3, _______, KC_BSLS,
     _______, _______, _______, _______, _______, _______,  KC_ENT,  KC_ENT,   _______,  _______, _______, _______
 ),
 
