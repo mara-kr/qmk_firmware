@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Alt  | GUI  | Lower|  Backspace  |      space  | Ctrl | F6   |      |      |
+ * | Brite| Alt  | GUI  | Lower| BS   | space       | Ctrl | F6   |   -  |   +  |Raise |
  * `-----------------------------------------------------------------------------------'
  */
     // F6 used for spotlight
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
     KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-    RGB_TOG, KC_LALT, KC_LGUI, LOWER,KC_BSPC, KC_BSPC, LT_RAIS, LT_RAIS,    KC_LCTL,  KC_F6,  RGB_VAI, RGB_SAI
+    RGB_TOG, KC_LALT, KC_LGUI, LOWER,KC_BSPC, LT_RAIS, LT_RAIS,   KC_LCTL,  KC_F6,   KC_MINS, KC_PLUS, KC_BSPC
 ),
 
 /* Lower
