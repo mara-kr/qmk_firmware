@@ -35,7 +35,8 @@ enum planck_keycodes {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
-#define LT_RAIS LT(_RAISE, KC_SPC)
+#define SP_RAIS LT(_RAISE, KC_SPC)
+#define BS_LOWR LT(_LOWER, KC_BSPC)
 
 #define COPY_PW LALT(LGUI(KC_C))
 #define ADD_TSK LCTL(LGUI(KC_A))
@@ -50,13 +51,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  |  BS  |
+ * | Tab  |   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Esc  |   A  |   R  |   S  |   T  |   G  |   M  |   N  |   E  |   I  |   O  |  '   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  | Lower|  space      | Ctrl | F6   |   -  |   +  |      |
+ * |      |      | Alt  | Cmd  |  BS  |    space    | Ctrl | F6   |   -  |   +  |      |
  * `-----------------------------------------------------------------------------------'
  */
     // F6 used for spotlight
@@ -65,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
     KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-    _______, KC_LCTL, KC_LALT, KC_LGUI, LOWER, LT_RAIS, LT_RAIS,   KC_BSPC,  KC_F6, _______,  _______, _______
+    _______, _______, KC_LALT, KC_LGUI, BS_LOWR, SP_RAIS, SP_RAIS, KC_LCTL, KC_F6, _______,  _______, _______
 ),
 
 /* Lower
