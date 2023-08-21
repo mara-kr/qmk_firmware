@@ -77,14 +77,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |  F5  |   {  |   }  |  PW  |      |   1  |   2  |   3  |      |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |             |  Enter      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |      |    Enter    |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 // F3/F4 used for otter speed/slow, F5 used for Misson Control
 [_LOWER] = LAYOUT_planck_grid(
     LOCK,    KC_F4,   KC_TILD, KC_LCBR, KC_RCBR, KC_UNDS, KC_MINS,    KC_7,      KC_8,     KC_9, _______, _______,
     _______, KC_F3,    KC_GRV, KC_LPRN, KC_RPRN,  KC_EQL, KC_PLUS,    KC_4,      KC_5,     KC_6,    KC_0, KC_PIPE,
-    _______, ADD_TSK,   KC_F5, KC_LBRC, KC_RBRC, COPY_PW,  KC_F12,    KC_1,      KC_2,     KC_3, _______, KC_BSLS,
+    _______, ADD_TSK,   KC_F5, KC_LBRC, KC_RBRC, COPY_PW, _______,    KC_1,      KC_2,     KC_3, _______, KC_BSLS,
     _______, _______, _______, _______, _______, _______,  KC_ENT,  KC_ENT,   _______,  _______, _______, _______
 ),
 
@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_planck_grid(
     _______,  KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_BSPC,
     _______,  _______, _______, KC_LCTL, KC_LSFT, _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______,  _______,
-    _______,  _______,   WIN_L,   WIN_U,   WIN_R, _______, _______, _______, _______, _______, _______,  _______,
+    _______,  _______,   WIN_L,   WIN_U,   WIN_R, _______, _______, KC_PGDN, KC_PGUP, _______, _______,  _______,
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
 ),
 
