@@ -57,11 +57,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      | Alt  | Cmd  |  BS  |    space    | Ctrl | F6   |   -  |   +  |      |
+ * |      |      | Alt  | Cmd  |  BS  |    space    | Ctrl | F6   |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-    // F6 used for spotlight
-    // TODO: Try for a bit, maybe a rotary encoder in one of the bottom spots
+    // F6 used for spotlight, tap-hold on bs works as continuously sending BS
+    // TODO: Try for a bit, maybe a rotary encoder in top right spot (bottom's covered by hands when typing)
+    // TODO: Encoder for volume up/down/mute, tab switching
 [_COLEMAK] = LAYOUT_planck_grid(
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS,
     KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
