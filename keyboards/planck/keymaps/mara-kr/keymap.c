@@ -42,6 +42,8 @@ enum planck_keycodes {
 #define ADD_TSK LCTL(LGUI(KC_A))
 #define LOCK    LCTL(LGUI(KC_Q))
 #define BREAK   LCTL(LGUI(KC_W))
+#define VOL_DN KC_KB_VOLUME_DOWN
+#define VOL_UP KC_KB_VOLUME_UP
 
 #define WIN_R   LCTL(LGUI(KC_RGHT))
 #define WIN_L   LCTL(LGUI(KC_LEFT))
@@ -86,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LOCK,    KC_F4,   KC_TILD, KC_LCBR, KC_RCBR, KC_UNDS, KC_MINS,    KC_7,      KC_8,     KC_9, _______, _______,
     _______, KC_F3,    KC_GRV, KC_LPRN, KC_RPRN,  KC_EQL, KC_PLUS,    KC_4,      KC_5,     KC_6,    KC_0, KC_PIPE,
     _______, ADD_TSK,   KC_F5, KC_LBRC, KC_RBRC, COPY_PW, _______,    KC_1,      KC_2,     KC_3, _______, KC_BSLS,
-    _______, _______, _______, _______, _______, _______,  KC_ENT,  KC_ENT,   _______,  _______, _______, _______
+    _______, _______, _______, _______, _______, _______,  KC_ENT,  KC_ENT,   _______,  _______,  VOL_DN,  VOL_UP
 ),
 
 /* Raise
