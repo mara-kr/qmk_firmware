@@ -1,6 +1,7 @@
-ifeq ($(strip $(AUDIO_ENABLE)), yes)
-    SRC += muse.c
-endif
+# ifeq ($(strip $(AUDIO_ENABLE)), yes)
+#     SRC += muse.c
+# endif
+
 
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no	    # Mouse keys
